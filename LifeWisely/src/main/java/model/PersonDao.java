@@ -28,6 +28,17 @@ public class PersonDao  {
     			userExists = true;
     		}
     		return userExists;       
- }
+        }
+        public boolean check_userexist(String username){
+        	boolean userExists = false;
+    		JdbcTemplate jdbcTemplate= new JdbcTemplate(dataSource);
+    		int rowcount = jdbcTemplate.queryForInt("select count(*) from User " +
+    				" where username = ?",
+    				username);
+    		if(rowcount==1){
+    			userExists = true;
+    		}
+    		return userExists;
+        }
             
 }

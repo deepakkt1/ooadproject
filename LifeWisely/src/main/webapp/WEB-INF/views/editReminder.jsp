@@ -7,13 +7,23 @@
 %>
         <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html >
+
 <html>
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE"> 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<p>Edit Reminder</p>
+<div align="center">
+<a href="/LifeWisely/welcome">
+<img align="middle" style="width: auto; height: auto;max-width: 200px;max-height: 200px" src="http://www.colorado.edu/libraries/profiles/express/themes/expressbase/images/cu-logo.svg">
+</a>
+<h2 >LifeWisely</h2>
+<h6 style="color:#DAA520">Manage things that matter, better</h6>
+
+</div>
+
 		<form:form name="EditReminder" method="POST">
 
 		<div align="center">

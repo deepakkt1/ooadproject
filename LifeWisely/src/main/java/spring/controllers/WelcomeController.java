@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import model.GroupDao;
 import model.PersonDao;
+import model.UserGroup;
 import model.createRemDao;
 import spring.controllers.LoginBean;
 import model.User;
@@ -38,6 +40,16 @@ public class WelcomeController {
 		model.addAttribute("allReminders", allReminders);
 		else
 			model.addAttribute("allReminders", null);
+		//for group reminders
+		System.out.println("111");
+		GroupDao dao=new GroupDao();
+		dao.setDataSource(dataSource);
+		List <UserGroup> allGroupReminders=new ArrayList<UserGroup>();
+		allGroupReminders=dao.selectAll(username);
+		if(allGroupReminders.size()!=0)
+			model.addAttribute("allGroupReminders", allGroupReminders);
+		else
+			model.addAttribute("allGroupReminders", null);
 		return "success";
 		}else{
 		return "login";
@@ -45,15 +57,12 @@ public class WelcomeController {
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String init(Model model,HttpSession session) {
-		if(session.getAttribute("userName")!=null){
-			String username=session.getAttribute("userName").toString();
-			if(username!=""){
-			return "redirect:/welcome";
-			}
-		}else{
+		//String username=session.getAttribute("userName").toString();
+		//if(username!=""){
+		//return "redirect:/welcome";
+		//}else{
 			return "login";
-		}
-		return "login";
+		//}
 	}
 	
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
@@ -71,7 +80,7 @@ public class WelcomeController {
         return "redirect:/login";
     }
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String submit(Model model, @ModelAttribute("loginBean") LoginBean loginBean,HttpSession session) {
 		if (loginBean != null && loginBean.getUserName() != null & loginBean.getPassword() != null) {
 			PersonDao dao = new PersonDao();

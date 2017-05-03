@@ -1,13 +1,19 @@
 package model;
 import spring.controllers.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.jdbc.core.JdbcTemplate;
-public class createRemDao  {
+public class createRemDao extends CreateRem {
         private DataSource dataSource;
 
         public void setDataSource(DataSource ds) {
@@ -19,6 +25,33 @@ public class createRemDao  {
                 insert.update("INSERT INTO Reminder (owner,name,category,frequency,notifmode,starttime,endtime,rewardpoints,iscompleted,title) VALUES(?,?,?,?,?,?,?,?,false,?)",
                                 new Object[] { obj.getOwner(), obj.getName(),obj.getCategory(),obj.getFrequency(),obj.getNotifMode(),obj.getStartTime(),obj.getEndTime(),obj.getRewardPoints(),obj.getTitle() });
         }
+        
+        public int createAndGetId(final CreateRem obj) {
+        	final String sql="INSERT INTO Reminder (owner,name,category,frequency,notifmode,starttime,endtime,rewardpoints,iscompleted,title) VALUES(?,?,?,?,?,?,?,?,false,?)";
+        	KeyHolder keyHolder = new GeneratedKeyHolder();
+        	JdbcTemplate jdbc=new JdbcTemplate(dataSource);
+        	
+        	jdbc.update(
+        		 new PreparedStatementCreator(){   
+                     public PreparedStatement createPreparedStatement(Connection conn) throws SQLException{   
+                         int i = 0;   
+                         java.sql.PreparedStatement ps = conn.prepareStatement(sql);    
+                         ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);   
+                         ps.setString(++i, obj.getOwner());   
+                         ps.setString(++i,obj.getCategory());   
+                         ps.setString(++i, obj.getFrequency());
+                         ps.setString(++i, obj.getNotifMode());
+                         ps.setString(++i, obj.getStartTime());
+                         ps.setString(++i, obj.getEndTime());
+                         ps.setInt(++i, obj.getRewardPoints());
+                         ps.setInt(++i, obj.getisCompleted());
+                         ps.setString(++i, obj.getTitle());
+                         return ps;   
+                     }  
+        	 }, keyHolder);
+        	return keyHolder.getKey().intValue();   
+        }
+        
         public void update(CreateRem obj) {
             JdbcTemplate insert = new JdbcTemplate(dataSource);
             insert.update("UPDATE Reminder set frequency = ? ,notifmode = ?,starttime = ?,endtime =?,rewardpoints=?,iscompleted=? WHERE id = ?",

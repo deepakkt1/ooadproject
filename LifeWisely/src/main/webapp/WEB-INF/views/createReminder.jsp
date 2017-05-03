@@ -5,31 +5,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Create new reminder</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-  <script>
-  $(document).ready(function() {
-   // $("#startdatepicker").datepicker();
-    $("#enddatepicker").datepicker();
-    
-  });
-  </script>
-</head>
+ </head>
 <body>
-<p>You are here to ${purpose} Reminder</p>
-		<form:form name="createReminder" method="POST">
+<div align="center">
+<a href="/LifeWisely/welcome">
+<img align="middle" style="width: auto; height: auto;max-width: 200px;max-height: 200px" src="http://www.colorado.edu/libraries/profiles/express/themes/expressbase/images/cu-logo.svg">
+</a>
+<h2 >LifeWisely</h2>
+<h6 style="color:#DAA520">Manage things that matter, better</h6>
+
+</div>
+
+		<form:form name="createReminder" method="POST" cssClass="form-horizontal">
 
 		<div align="center">
 			<table>
-			<input type="hidden" name="Owner" value="${purpose}" />
 				<tr>
 				
 					<td>Title</td>
 					
-					<td><input type="text" name="Title" /></td>
+					<td><input type="text" name="Title" />	<input type="hidden" name="Owner" value="${purpose}" />
+		</td>
 				</tr>
 				<tr>
 				
@@ -43,7 +45,14 @@
 				</tr>
 				<tr>
 					<td>Frequency</td>
-					<td><input type="text" name="Frequency" /></td>
+					<td>
+					<select name="Frequency">
+  <option value="0.5">30 mins</option>
+  <option value="1">1 hour</option>
+  <option value="12">12 hours</option>
+</select>
+					
+					</td>
 				</tr>
 				<tr>
 					<td>StartTime</td>
@@ -51,11 +60,13 @@
 				</tr>
 				<tr>
 					<td>EndTime</td>
-					<td><input id="enddatepicker" type="date" name="EndTime" /></td>
+					<td><input id="datetime-local" type="date" name="EndTime" /></td>
 				</tr>
 				<tr>
 					<td>NotifMode</td>
-					<td><input type="text" name="NotifMode" /></td>
+					<td><select name="NotifMode">
+					<option value="Email">Email</option>
+					</select></td>
 				</tr>
 				<tr>
 					<td>RewardPoints</td>

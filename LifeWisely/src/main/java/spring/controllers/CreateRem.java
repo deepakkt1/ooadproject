@@ -4,7 +4,6 @@ package spring.controllers;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 public class CreateRem {
 	private int id;
 	private String Owner;
@@ -19,7 +18,7 @@ public class CreateRem {
 	private int isCompleted;
 	@Autowired
 	public CreateRem(String owner, String name, String title, String category, String frequency, String notifMode, String startTime,
-			String endTime, int rewardPoints, int isCompleted) {
+			String endTime, int rewardPoints, int iscompleted) {
 		super();
 		Owner=owner;
 		Name = name;
@@ -30,7 +29,7 @@ public class CreateRem {
 		StartTime = startTime;
 		EndTime = endTime;
 		RewardPoints = rewardPoints;
-		isCompleted= isCompleted;
+		isCompleted= iscompleted;
 	}
 	public CreateRem(){
 		

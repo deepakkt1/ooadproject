@@ -1,5 +1,6 @@
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <html>
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE"> 
 <body>
 <div align="center">
 <a href="/LifeWisely">
